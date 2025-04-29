@@ -7,6 +7,7 @@ from torchvision import transforms
 from PIL import Image
 from tqdm import tqdm
 
+#data set for card dataset
 class CardSet(Dataset):
     def __init__(self, csv_file, set_type, transform=None):
         self.data = pd.read_csv(csv_file)
@@ -26,13 +27,18 @@ class CardSet(Dataset):
             image = self.transform(image)
         return image, label
 
+#makes sure every image is 224x224 and convert it to tensor for CNN
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
 ])
 
 
-
+# My model is a simple CNN that reduces the image data to 14 classes
+# 3 channel 224x224 to 16 channels
+# max pool to reduce size
+# 16 to 32 channels etc.
+# Then the model is flattened to linear for classification
 class CardCNN(nn.Module):
     def __init__(self, num_classes=14):
         super(CardCNN, self).__init__()

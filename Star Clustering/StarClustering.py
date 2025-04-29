@@ -7,25 +7,29 @@ df = pd.read_csv("star_dataset.csv")
 
 star_classes = df["Spectral Class"]
 
+#Standardizing dataset
 df = df[["Luminosity (L/Lo)", "Radius (R/Ro)", "Temperature (K)"]]
 X = df.copy().to_numpy() * 1.0
 std = np.std(X, axis=0)
 X /= std
 
+#looking for best cluster amount
 inertia = np.zeros(14)
 for i in range(1, 15):
     kmeans = KMeans(n_clusters=i, n_init=25).fit(X)
     inertia[i-1] = kmeans.inertia_
-
+#plotting "elbow" graph for best fit
 plt.plot(np.arange(1, 15), inertia)
 plt.show()
 
+#Using elbow graph, determined 4 clusters was ideal
 kmeans = KMeans(n_clusters=4, n_init=25)
 kmeans.fit(X)
 
 print(kmeans.inertia_)
 print(kmeans.cluster_centers_ * std)
 
+#plotting 3D representation of clusters
 labels = kmeans.fit_predict(X)
 
 fig = plt.figure(figsize=(8, 6))
