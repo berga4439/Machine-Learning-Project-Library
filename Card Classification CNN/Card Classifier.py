@@ -1,11 +1,14 @@
 import pandas as pd
 import torch
 import torch.nn as nn
+import numpy as np
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 from PIL import Image
 from tqdm import tqdm
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 #data set for card dataset
 class CardSet(Dataset):
@@ -70,12 +73,12 @@ class CardCNN(nn.Module):
         return x
 
 
-def trainNN(epochs=5, batch_size=16, lr=0.001, display_test_acc=False):
+def trainNN(epochs=5, batch_size=16, lr=0.001):
     train_set = CardSet("./dataset/cards.csv", "train", transform=transform)
-    test_set = CardSet("./dataset/cards.csv", "test", transform=transform)
+
 
     train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=False)
+
     card_cnn = CardCNN()
 
     cross_entropy = nn.CrossEntropyLoss()
@@ -95,9 +98,35 @@ def trainNN(epochs=5, batch_size=16, lr=0.001, display_test_acc=False):
             running_loss += loss.item()
         print(f"Running loss for epoch {epoch + 1}: {running_loss:.4f}")
         running_loss = 0.0
-        if display_test_acc:
-            with torch.no_grad():
-                pass
+
+    return card_cnn
 
 
-trainNN(epochs=5, display_test_acc=False)
+
+model = trainNN(epochs=5, batch_size=32)
+
+
+print("Model training done")
+
+test_set = CardSet("./dataset/cards.csv", "test", transform=transform)
+test_loader = DataLoader(test_set, batch_size=32, shuffle=False)
+
+model.eval()
+y_true = []
+y_pred = []
+
+with torch.no_grad():
+    for images, labels in test_loader:
+        outputs = model(images)
+        _, predicted = torch.max(outputs, 1)
+
+        y_true.extend(labels.numpy())
+        y_pred.extend(predicted.numpy())
+
+
+
+cm = confusion_matrix(y_true, y_pred)
+disp_cm = ConfusionMatrixDisplay(cm, display_labels=test_set.classes)
+disp_cm.plot()
+plt.show()
+
