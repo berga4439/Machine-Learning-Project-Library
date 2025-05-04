@@ -1,7 +1,7 @@
 # Machine Learning Project Library
 
 
-Card dataset for CNN
+**Card dataset for CNN**
 - https://www.kaggle.com/datasets/gpiosenka/cards-image-datasetclassification
 
 Results:
@@ -17,7 +17,7 @@ My model fits the data well with minimal training time.
 
 
 
-Star Dataset for KMeans Clustering
+**Star Dataset for KMeans Clustering**
 - https://www.kaggle.com/datasets/waqi786/stars-dataset
 
 Results
