@@ -4,4 +4,4 @@
 Card dataset for CNN
 - https://www.kaggle.com/datasets/gpiosenka/cards-image-datasetclassification
 
-![Confusion Matrix](images/card_cm.png)
+![Confusion Matrix](images/Cards_cm.png)
