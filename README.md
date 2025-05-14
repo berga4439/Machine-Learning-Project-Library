@@ -65,4 +65,18 @@ The OOB score for the Bagging SVC was 0.214, where as the Random Forrest had an 
 
 This shows that the SVC was consistently underperforming where as the Random forrest was overfitting but still getting better results.
 
+## Ridge From Scratch
+- https://www.kaggle.com/datasets/ericpierce/austinhousingprices
 
+The goal of this assignment was to understand how ridge regression works and implement it in code.
+
+The dataset is on Austin Housing prices. This dataset was chosen because we are trying to highlight ridge regression's strength. We want the dataset to overfit with regular linear regression.
+
+Linear (train): 0.511
+Linear (test): 0.458
+SkLearn Ridge (train): 0.511
+SkLearn Ridge (test): 0.458
+My Ridge (train): 0.511
+My Ridge (test): 0.458
+
+Even with only 5% of the dataset in the train split, I could not get the model to overfit greatly. However my implementation of ridge worked just as well as the professional library. 
