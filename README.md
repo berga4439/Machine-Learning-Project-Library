@@ -1,7 +1,7 @@
 # Machine Learning Project Library
 
 
-**Card dataset for CNN**
+## Card dataset for CNN
 - https://www.kaggle.com/datasets/gpiosenka/cards-image-datasetclassification
 
 Results:
@@ -13,11 +13,11 @@ Results:
 
 Each class has 20 cards, 4 suits x 5 samples. Joker only has 5 samples.
 
-My model fits the data well with minimal training time.
+Twos were misclassified the most with only 13/20 cards successfully classified. Overall, my model fits the data well with minimal training time. 
 
 
 
-**Star Dataset for KMeans Clustering**
+## Star Dataset for KMeans Clustering
 - https://www.kaggle.com/datasets/waqi786/stars-dataset
 
 Results
@@ -38,4 +38,31 @@ I chose 4 clusters again
 
 ![clustering 1](images/star_cluster_2.png)
 
-This time I could see a bit better into the main cluster.
+This time I could see a bit better into the main cluster. Again there seems to be some outliers but, the main cluster is a bit more spread out. WIth the two clusters we can see some distinct types of stars.
+
+## SVC Bagging and Random Forrest
+- https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification
+
+Results:
+
+The goal of this project was to explore bagging using random forrests and svc. The dataset is on a game called Counter-strike. The dataset is comprised of hundreds of professional rounds played. Normally, this dataset is used to classify which team won the round however I wanted to classify which map is played on. I thought this was acheivable because in professional matches, each map is played somewhat distinctly from eachother.
+
+
+![SVC Matrix](images/SVCBagging.png)
+
+Surprisingly, SVC did not classify the maps well. 
+
+
+![RF Matrix](images/RandomForrest.png)
+
+Random Forrest did much better classifying the maps.
+
+The accuracy of the Bagging SVC was 0.215, where as the Random Forrest had an accuracy of 0.711.
+
+It's also important to look at the "Out of bag" score for each model, this is like a test score of each model.
+
+The OOB score for the Bagging SVC was 0.214, where as the Random Forrest had an OOB Score of 0.433.
+
+This shows that the SVC was consistently underperforming where as the Random forrest was overfitting but still getting better results.
+
+
